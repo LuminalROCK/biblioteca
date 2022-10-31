@@ -1,0 +1,74 @@
+  create database biblioteca_el;
+  
+  create table usuario (
+  id_usuario int not null auto_increment,
+  nome varchar(45),
+  telefone varchar(12),
+  endereco varchar(45),
+  cpf varchar(11),
+  primary key (id_usuario)
+  )default charset = utf8;
+  
+  create table emprestimo (
+  id_emprestimo int not null auto_increment,
+  id_usuario int,
+  profissao varchar(45),
+  data_emprestimo date,
+  primary key (id_emprestimo)
+  )default charset = utf8;
+  
+  create table autores (
+  id_autores int not null auto_increment,
+  nome varchar(45),
+  telefone varchar(12),
+  endereco varchar(45),
+  primary key (id_autores)
+  )default charset = utf8;
+  
+  create table editora (
+  id_editora int not null auto_increment,
+  nome varchar(45),
+  telefone varchar(12),
+  endereco varchar(45),
+  cnpj varchar(8),
+  primary key (id_editora)
+  )default charset = utf8;
+  
+  create table livro (
+  id_livro int not null auto_increment,
+  nome varchar(45),
+  descricao varchar(45),
+  id_autores int,
+  id_editora int,
+  id_emprestimo int,
+  primary key (id_livro)
+  )default charset = utf8;
+  
+  
+  
+  alter table emprestimo add constraint fk_usuario foreign key (id_usuario) references usuario (id_usuario);
+  
+  alter table livro add constraint fk_emprestimo foreign key (id_emprestimo) references emprestimo (id_emprestimo);
+  
+  alter table livro add constraint fk_autores foreign key (id_autores) references autores (id_autores);
+  
+  alter table livro add constraint fk_editora foreign key (id_editora) references editora (id_editora);
+  
+  
+  
+  insert into usuario (nome, telefone, endereco, cpf)
+  values ("Vander", "41912345678", "Valadares do Vila", "10020030080");
+  
+  insert into autores (nome, telefone, endereco)
+  values ("Ronaldo", "41902345678", "Porto inseguro");
+  
+  insert into editora (nome, telefone, endereco, cnpj)
+  values ("Edição Editada", "41922345678", "Groove Street", "12345678");
+  
+  select * from usuario;
+  
+  select * from autores;
+  
+  select * from editora;
+  
+  drop table livro;
